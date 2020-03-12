@@ -7,6 +7,19 @@
 
             using (Transaction tr = db.TransactionManager.StartTransaction())
             {
+                /* Open BlockTable containing all BlockTableRecords
+                 * ------------------------------------------------
+                 * Block definitions are stored insit BlockTableRecords and if that block has 
+                 * attribute definitions, then those are stored as AttributeDefinitions inside
+                 * the BlockTableRecord.
+                 * 
+                 * Non-constant AttributeDefinition Case
+                 * -------------------------------------
+                 * A block is inserted as a BlockReference inside the drawing and for blocks with 
+                 * attributes, the BlockReference has a AttiributeReference that a matching 
+                 * AttributeDefinition in the BlockTableRecord. 
+                 * 
+                 */                    
                 // Open BlockTable containing all BlockTableRecords
                 BlockTable blkTbl = tr.GetObject(db.BlockTableId, OpenMode.ForRead) as BlockTable;
 
